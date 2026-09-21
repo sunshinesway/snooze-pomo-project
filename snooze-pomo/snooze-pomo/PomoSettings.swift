@@ -6,7 +6,7 @@
 //
 import Foundation
 
-
+// MODEL
 struct PomoSettings  {
     
     // Configured durations, preferences

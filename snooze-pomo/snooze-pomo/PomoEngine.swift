@@ -10,23 +10,18 @@ import Combine
 import UserNotifications
 
 // TODO: split PomoEngine to be more in line with MVVM:
-    // duration -> model
+// (solve pause question first, may req significant changes)
     // timer logic -> move to service
     // engine -> owns instance of timer, exposes @Pub vars, and intents (startWork/Break, etc)
 
-//// MODEL
-//// phases of the pomodoro timer
-//enum PomoPhase: Equatable {
-//    case idle       // not working
-//    case working    // work session
-////    case breakReady // when break can be snoozed
-////    case snoozed    // postponed break
-//    case onBreak    // break session
-//}
+// TODO: pause logic
+    // count time paused, move endDate forward as needed?
+    // maybe easier/better to move away from endDate usage, instead counting down to 0.
+        // Would not keep counting while mac in sleep, but I don't really care about that anyway tbh
 
 // VIEW MODEL
 final class PomoEngine: ObservableObject {
-    public init() {}
+//    public init() {}
     
     @Published var settings: PomoSettings = PomoSettings(workDuration: 15, breakDuration: 5) // testing vals: 15/5 secs
     
@@ -87,6 +82,7 @@ final class PomoEngine: ObservableObject {
                 notify(title: "Break complete", body: "Back to work!")
             
 //            case .snoozed:
+            
 //            case .breakReady:
             
             case .idle: // should NOT fire from .idle phase

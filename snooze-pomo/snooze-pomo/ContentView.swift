@@ -7,15 +7,15 @@
 
 import SwiftUI
 
+// VIEW
 struct ContentView: View {
     @EnvironmentObject var engine: PomoEngine
     
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            Button("Start/Stop",
+                   action: { engine.timeRemaining.isZero ? engine.startWork() : engine.stop() })
+            Text(engine.timeRemainingString)
         }
         .padding()
     }
