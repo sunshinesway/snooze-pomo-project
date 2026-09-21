@@ -78,11 +78,11 @@ final class PomoEngine: ObservableObject {
         switch phase { // go to next phase
             case .working:
                 beginCountdown(duration: breakDuration, phase: .onBreak)
-                notify(title: "Work Session complete", content: "Break starting!")
+                notify(title: "Work Session complete", body: "Break starting!")
             
             case .onBreak:
                 beginCountdown(duration: workDuration, phase: .working)
-                notify(title: "Break complete", content: "Work session starting!")
+                notify(title: "Break complete", body: "Work session starting!")
             
 //            case .snoozed:
 //            case .breakReady:
@@ -105,11 +105,27 @@ final class PomoEngine: ObservableObject {
 //    func snoozeBreak() {}
     
     func stop() {
-        
+        ticker?.invalidate()
+        ticker = nil
+        endDate = nil
+        timeRemaining = 0
+        phase = .idle
     }
     
     // Notifications
-    func notify(title: String, content: String) {
+    func notify(title: String, body: String) {
+        let content = UNMutableNotificationContent()
+        content.title = title
+        content.body = body
+        content.sound = .default
         
+        let request = UNNotificationRequest(
+            identifier: UUID().uuidString,
+            content: content,
+            trigger: nil // immediately
+        )
+    }
+    func requestPermission() {
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { _, _ in }
     }
 }
