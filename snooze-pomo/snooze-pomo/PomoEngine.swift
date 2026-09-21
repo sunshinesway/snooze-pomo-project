@@ -9,15 +9,12 @@ import Foundation
 import Combine
 import UserNotifications
 
+
 // TODO: split PomoEngine to be more in line with MVVM:
 // (solve pause question first, may req significant changes)
     // timer logic -> move to service
     // engine -> owns instance of timer, exposes @Pub vars, and intents (startWork/Break, etc)
 
-// TODO: pause logic
-    // count time paused, move endDate forward as needed?
-    // maybe easier/better to move away from endDate usage, instead counting down to 0.
-        // Would not keep counting while mac in sleep, but I don't really care about that anyway tbh
 
 // VIEW MODEL
 final class PomoEngine: ObservableObject {
@@ -41,13 +38,13 @@ final class PomoEngine: ObservableObject {
     }
     
     // Internal timing
-    private var endDate: Date?
+//    private var endDate: Date?
     private var ticker: Timer?
     
     private func beginCountdown(duration: TimeInterval, phase newPhase: PomoPhase) {
         ticker?.invalidate() // stop ticker if running
         phase = newPhase
-        endDate = Date().addingTimeInterval(duration)
+//        endDate = Date().addingTimeInterval(duration)
         timeRemaining = duration
         
         let t = Timer(timeInterval: 1.0, repeats: true) {[weak self] _ in
@@ -59,9 +56,9 @@ final class PomoEngine: ObservableObject {
     }
     
     private func tick() {
-        guard let endDate else { return }
-        
-        timeRemaining = max(0, endDate.timeIntervalSinceNow)
+//        guard let endDate else { return }
+        timeRemaining -= 1
+//        timeRemaining = max(0, endDate.timeIntervalSinceNow)
         
         if timeRemaining <= 0 {
             handlePhaseChange()
@@ -91,7 +88,6 @@ final class PomoEngine: ObservableObject {
     }
     
     // Controls
-    // Update/use when snooze implemented
     func startWork() {
         beginCountdown(duration: settings.workDuration, phase: .working)
     }
@@ -99,13 +95,23 @@ final class PomoEngine: ObservableObject {
     func startBreak() {
         beginCountdown(duration: settings.breakDuration, phase: .onBreak)
     }
+    func pause() {
+        if ticker != nil { // pause
+            ticker?.invalidate()
+            ticker = nil
+            isPaused = true
+        }
+        else if (timeRemaining > 0){ // unpause
+            beginCountdown(duration: timeRemaining, phase: phase)
+        }
+    }
     
 //    func snoozeBreak() {}
     
     func stop() {
         ticker?.invalidate()
         ticker = nil
-        endDate = nil
+//        endDate = nil
         timeRemaining = 0
         phase = .idle
     }
