@@ -20,7 +20,7 @@ import UserNotifications
 final class PomoEngine: ObservableObject {
 //    public init() {}
     
-    @Published var settings: PomoSettings = PomoSettings(workDuration: 15, breakDuration: 5) // testing vals: 15/5 secs
+    @Published var settings: PomoSettings = PomoSettings(workDuration: 10, breakDuration: 5) // testing vals: 10/5 secs
     
     // Live state
     @Published private(set) var phase: PomoPhase = .idle

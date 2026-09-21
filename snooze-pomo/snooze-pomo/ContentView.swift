@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+// TODO: notification/pop-up w/ button for user to snooze break
+    // currently, notifications are lost in notifications panel on macOS
+// TODO: add ping noise for swtich between work/break/snooze
+
 // VIEW
 struct ContentView: View {
     @EnvironmentObject var engine: PomoEngine
@@ -40,28 +44,3 @@ struct ContentView: View {
     ContentView()
 }
 
-struct DisabledButtonExample: View {
-  // Track whether the button is disabled
-  @State private var isButtonDisabled = true
- 
-  var body: some View {
-    VStack(spacing: 20) {
-      // Toggle to control disabled state
-      Toggle("Disable Button", isOn: $isButtonDisabled)
-        .padding()
- 
-      // Button with disabled modifier
-      Button(action: {
-        print("Button was tapped!")
-      }) {
-        Text("Submit")
-          .padding()
-          .background(Color.blue)
-          .foregroundColor(.white)
-          .cornerRadius(8)
-      }
-      // Disable if isButtonDisabled is true
-      .disabled(isButtonDisabled)
-    }
-  }
-}

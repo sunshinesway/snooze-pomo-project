@@ -9,15 +9,22 @@ import SwiftUI
 
 @main
 struct snooze_pomoApp: App {
-    // TODO: add stateobject PomoEngine object
     @StateObject var engine: PomoEngine = PomoEngine()
+    
+    init() {
+        // this must run once; store the viewModel instance is fine to call on too
+    }
     
     var body: some Scene {
         WindowGroup {
             ContentView()
                 .environmentObject(engine)
+                .onAppear {
+                    engine.requestPermission()
+                }
         }
      // TODO: add MenuBarExtra for menu bar utility
     
     }
 }
+        
