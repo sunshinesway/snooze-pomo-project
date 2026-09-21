@@ -9,24 +9,26 @@ import Foundation
 import Combine
 import UserNotifications
 
-// phases of the pomodoro timer
-enum PomoPhase: Equatable {
-    case idle       // not working
-    case working    // work session
-//    case breakReady // when break can be snoozed
-//    case snoozed    // postponed break
-    case onBreak    // break session
-}
+// TODO: split PomoEngine to be more in line with MVVM:
+    // duration -> model
+    // timer logic -> move to service
+    // engine -> owns instance of timer, exposes @Pub vars, and intents (startWork/Break, etc)
 
+//// MODEL
+//// phases of the pomodoro timer
+//enum PomoPhase: Equatable {
+//    case idle       // not working
+//    case working    // work session
+////    case breakReady // when break can be snoozed
+////    case snoozed    // postponed break
+//    case onBreak    // break session
+//}
+
+// VIEW MODEL
 final class PomoEngine: ObservableObject {
     public init() {}
     
-    // Configured durations, preferences
-    @Published var workDuration: TimeInterval = 60 * 60
-    @Published var breakDuration: TimeInterval = 10 * 60
-//    @Published var snoozeDuration: TimeInterval = 5 * 60
-    
-//    @Published var maxSnoozeCount: Int = 2
+    @Published var settings: PomoSettings = PomoSettings(workDuration: 15, breakDuration: 5) // testing vals: 15/5 secs
     
     // Live state
     @Published private(set) var phase: PomoPhase = .idle
@@ -77,12 +79,12 @@ final class PomoEngine: ObservableObject {
         
         switch phase { // go to next phase
             case .working:
-                beginCountdown(duration: breakDuration, phase: .onBreak)
-                notify(title: "Work Session complete", body: "Break starting!")
+            beginCountdown(duration: settings.breakDuration, phase: .onBreak)
+            notify(title: "Work Session complete", body: "Take a break!")
             
             case .onBreak:
-                beginCountdown(duration: workDuration, phase: .working)
-                notify(title: "Break complete", body: "Work session starting!")
+            beginCountdown(duration: settings.workDuration, phase: .working)
+                notify(title: "Break complete", body: "Back to work!")
             
 //            case .snoozed:
 //            case .breakReady:
@@ -95,11 +97,11 @@ final class PomoEngine: ObservableObject {
     // Controls
     // Update/use when snooze implemented
     func startWork() {
-        
+        beginCountdown(duration: settings.workDuration, phase: .working)
     }
     
     func startBreak() {
-        
+        beginCountdown(duration: settings.breakDuration, phase: .onBreak)
     }
     
 //    func snoozeBreak() {}
@@ -124,6 +126,7 @@ final class PomoEngine: ObservableObject {
             content: content,
             trigger: nil // immediately
         )
+        UNUserNotificationCenter.current().add(request)
     }
     func requestPermission() {
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { _, _ in }

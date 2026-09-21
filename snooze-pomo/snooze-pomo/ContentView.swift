@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var engine: PomoEngine
+    
     var body: some View {
         VStack {
             Image(systemName: "globe")
