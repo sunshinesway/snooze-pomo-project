@@ -10,11 +10,14 @@ import SwiftUI
 @main
 struct snooze_pomoApp: App {
     // TODO: add stateobject PomoEngine object
+    @StateObject var engine: PomoEngine = PomoEngine()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
-            // add environmentObject - PomoEngine object
+                .environmentObject(engine)
         }
      // TODO: add MenuBarExtra for menu bar utility
+    
     }
 }
