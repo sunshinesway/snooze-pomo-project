@@ -25,6 +25,7 @@ final class PomoEngine: ObservableObject {
 //    public init() {}
     
     @Published var settings: PomoSettings = PomoSettings(workDuration: 10, breakDuration: 5) // testing vals: 10/5 secs
+    private var soundPlayer: SoundPlayer = SoundPlayer()
     
     // Live state
     @Published private(set) var phase: PomoPhase = .idle
@@ -65,15 +66,13 @@ final class PomoEngine: ObservableObject {
         }
     }
     
-    private func waitForSnooze() { // pop up, wait for 'snooze' click, otherwise, go to break
-        
-        
-    }
-    
     private func handlePhaseChange(snoozing: Bool = false) {
         ticker?.invalidate()
         ticker = nil
-        		
+        if !snoozing {
+            soundPlayer.playSound()
+        }
+        
         switch phase { // go to next phase
             case .working:
                 beginCountdown(duration: settings.breakReadyDuration, phase: .breakReady)
