@@ -14,8 +14,8 @@ import SwiftUI
 // VIEW
 struct ContentView: View {
     @EnvironmentObject var engine: PomoEngine
-    
-//    @State private var timerRunning: Bool = false
+    @Environment(\.appearsActive) private var appearsActive
+    @Environment(\.openWindow) private var openWindow
         
     var body: some View {
         
@@ -42,6 +42,9 @@ struct ContentView: View {
                             Button("Pause"){
                                 engine.pause()
                             }
+                            Button("Skip"){
+                                engine.skip()
+                            }
                         }.padding()
                     }
                 
@@ -62,13 +65,23 @@ struct ContentView: View {
                     }
                 
                 case .breakReady:
-                    
-                
+                    VStack() {
+                        Text("Snooze break?")
+                        Button("Snooze"){
+                            engine.snooze()
+                        }
+                    }
                     
             }
         }
+        .padding()
+        .onChange(of: engine.phase) {_, newPhase in
+            if newPhase == .breakReady && !appearsActive{
+                openWindow(id: "snooze-prompt")
+            }
+        }
     }
-    .padding()
+    
 }
 
 

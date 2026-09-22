@@ -11,9 +11,9 @@ import SwiftUI
 struct snooze_pomoApp: App {
     @StateObject var engine: PomoEngine = PomoEngine()
     
-    init() {
-        // this must run once; store the viewModel instance is fine to call on too
-    }
+//    init() {
+//        // this must run once; store the viewModel instance is fine to call on too
+//    }
     
     var body: some Scene {
         WindowGroup {
@@ -23,10 +23,13 @@ struct snooze_pomoApp: App {
                     engine.requestPermission()
                 }
         }
-        WindowGroup("Snooze-prompt") {
+        Window("Snooze Break?", id: "snooze-prompt") {
             SnoozePromptView()
                 .environmentObject(engine)
         }
+        .windowLevel(.floating)
+        
+            
      // TODO: add MenuBarExtra for menu bar utility
     
     }

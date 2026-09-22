@@ -14,6 +14,6 @@ struct PomoSettings  {
     var breakDuration: TimeInterval =  5 // real: 10 * 60
     var snoozeDuration: TimeInterval = 5 // real: 5 * 60
     
-    var breakReadyDuration: TimeInterval = 15 // time to see notification and click 'snooze'
+    var breakReadyDuration: TimeInterval = 5 // time to see notification and click 'snooze'
         var maxSnoozeCount: Int = 2
 }

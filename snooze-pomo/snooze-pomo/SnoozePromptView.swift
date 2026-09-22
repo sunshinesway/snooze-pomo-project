@@ -8,23 +8,30 @@
 import SwiftUI
 
 struct SnoozePromptView: View {
+    @EnvironmentObject var engine: PomoEngine
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
         VStack() {
-            Image(systemName: "window")
-                .font(Font.system(size: 48))
-            Text("Snooze Prompt")
-                .font(.title)
-            Button("Snooze") {
+                Text("Ready for a break?")
+                    .font(.title)
+            Button("Snooze", systemImage: "moon.zzz") {
+                    engine.snooze()
+                }
+            .buttonStyle(.borderedProminent)
+            .font(.headline.bold())
+            .frame(width: 100, height: 50)
+           
+        }
+        .onChange(of: engine.phase) {_, newPhase in
+            if newPhase != .breakReady {
                 dismiss()
             }
         }
-    }
-}
-
-struct SecondaryView_Previews: PreviewProvider {
-    static var previews: some View {
-        SnoozePromptView()
+        .frame(width: 250, height: 150)
+        .background {
+            WindowAccessor { window in
+                positionSnoozeWindow(window: window)}
+        }
     }
 }

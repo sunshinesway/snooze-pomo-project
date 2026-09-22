@@ -70,27 +70,32 @@ final class PomoEngine: ObservableObject {
         
     }
     
-    private func handlePhaseChange() {
+    private func handlePhaseChange(snoozing: Bool = false) {
         ticker?.invalidate()
         ticker = nil
         		
         switch phase { // go to next phase
             case .working:
-                beginCountdown(duration: settings.breakDuration, phase: .onBreak)
+                beginCountdown(duration: settings.breakReadyDuration, phase: .breakReady)
 //                notify(title: "Work Session complete", body: "Take a break!")
             
             case .onBreak:
                 beginCountdown(duration: settings.workDuration, phase: .working)
-                notify(title: "Break complete", body: "Back to work!")
+//                notify(title: "Break complete", body: "Back to work!")
           
             case .snoozed:
                 // TODO: add logic to handle maxSnooze limit per break
                 beginCountdown(duration: settings.breakDuration, phase: .onBreak)
             
             case .breakReady:
+                if snoozing {
+                    beginCountdown(duration: settings.snoozeDuration, phase: .snoozed)
+                }
+                else {
+                    beginCountdown(duration: settings.breakDuration, phase: .onBreak)
+            }
                 
-                
-            case .idle: // should NOT fire from .idle phase
+            case .idle: // should NOT fire from .idle phase: .idle -> .working handled by start()
                 break
         }
     }
@@ -99,10 +104,7 @@ final class PomoEngine: ObservableObject {
     func start() { // start a new work session
         beginCountdown(duration: settings.workDuration, phase: .working)
     }
-    
-//    func startBreak() {
-//        beginCountdown(duration: settings.breakDuration, phase: .onBreak)   
-//    }
+
     func pause() {
         if ticker != nil { // pause
             ticker?.invalidate()
@@ -113,16 +115,18 @@ final class PomoEngine: ObservableObject {
             beginCountdown(duration: timeRemaining, phase: phase)
         }
     }
+    
     func skip() {
         handlePhaseChange()
     }
     
-//    func snoozeBreak() {}
-    
+    func snooze() {
+        handlePhaseChange(snoozing: true)
+    }
+        
     func stop() {
         ticker?.invalidate()
         ticker = nil
-//        endDate = nil
         timeRemaining = 0
         phase = .idle
     }
