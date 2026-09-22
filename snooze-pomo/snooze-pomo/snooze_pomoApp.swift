@@ -23,6 +23,10 @@ struct snooze_pomoApp: App {
                     engine.requestPermission()
                 }
         }
+        WindowGroup("Snooze-prompt") {
+            SnoozePromptView()
+                .environmentObject(engine)
+        }
      // TODO: add MenuBarExtra for menu bar utility
     
     }

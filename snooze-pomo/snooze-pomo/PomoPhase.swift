@@ -10,8 +10,8 @@
 enum PomoPhase: Equatable {
     case idle       // not working
     case working    // work session
-//    case breakReady // when break can be snoozed
-//    case snoozed    // postponed break
+    case breakReady // when break can be snoozed
+    case snoozed    // postponed break
     case onBreak    // break session
 }
 

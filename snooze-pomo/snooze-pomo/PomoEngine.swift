@@ -15,6 +15,10 @@ import UserNotifications
     // timer logic -> move to service
     // engine -> owns instance of timer, exposes @Pub vars, and intents (startWork/Break, etc)
 
+// TODO: snooze functionality
+    // move between work -> breakReady -> break -> work OR
+                //  work -> breakReady -> snooze -> break -> work
+                // (+ addtl breakReady -> snooze dep. on num allowed)
 
 // VIEW MODEL
 final class PomoEngine: ObservableObject {
@@ -26,8 +30,8 @@ final class PomoEngine: ObservableObject {
     @Published private(set) var phase: PomoPhase = .idle
     @Published private(set) var timeRemaining: TimeInterval = 0
     @Published private(set) var isPaused: Bool = false
-//    @Published var isSnoozed: Bool = false
     
+    private(set) var snoozesUsed: Int = 0
     
     // Time Remaining Display
     var timeRemainingString: String {
@@ -38,13 +42,11 @@ final class PomoEngine: ObservableObject {
     }
     
     // Internal timing
-//    private var endDate: Date?
     private var ticker: Timer?
     
     private func beginCountdown(duration: TimeInterval, phase newPhase: PomoPhase) {
         ticker?.invalidate() // stop ticker if running
         phase = newPhase
-//        endDate = Date().addingTimeInterval(duration)
         timeRemaining = duration
         
         let t = Timer(timeInterval: 1.0, repeats: true) {[weak self] _ in
@@ -56,54 +58,63 @@ final class PomoEngine: ObservableObject {
     }
     
     private func tick() {
-//        guard let endDate else { return }
         timeRemaining -= 1
-//        timeRemaining = max(0, endDate.timeIntervalSinceNow)
         
         if timeRemaining <= 0 {
             handlePhaseChange()
         }
     }
     
+    private func waitForSnooze() { // pop up, wait for 'snooze' click, otherwise, go to break
+        
+        
+    }
+    
     private func handlePhaseChange() {
         ticker?.invalidate()
         ticker = nil
-        
+        		
         switch phase { // go to next phase
             case .working:
-            beginCountdown(duration: settings.breakDuration, phase: .onBreak)
-            notify(title: "Work Session complete", body: "Take a break!")
+                beginCountdown(duration: settings.breakDuration, phase: .onBreak)
+//                notify(title: "Work Session complete", body: "Take a break!")
             
             case .onBreak:
-            beginCountdown(duration: settings.workDuration, phase: .working)
+                beginCountdown(duration: settings.workDuration, phase: .working)
                 notify(title: "Break complete", body: "Back to work!")
+          
+            case .snoozed:
+                // TODO: add logic to handle maxSnooze limit per break
+                beginCountdown(duration: settings.breakDuration, phase: .onBreak)
             
-//            case .snoozed:
-            
-//            case .breakReady:
-            
+            case .breakReady:
+                
+                
             case .idle: // should NOT fire from .idle phase
                 break
         }
     }
     
     // Controls
-    func startWork() {
+    func start() { // start a new work session
         beginCountdown(duration: settings.workDuration, phase: .working)
     }
     
-    func startBreak() {
-        beginCountdown(duration: settings.breakDuration, phase: .onBreak)
-    }
+//    func startBreak() {
+//        beginCountdown(duration: settings.breakDuration, phase: .onBreak)   
+//    }
     func pause() {
         if ticker != nil { // pause
             ticker?.invalidate()
             ticker = nil
             isPaused = true
         }
-        else if (timeRemaining > 0){ // unpause
+        else if (isPaused && timeRemaining > 0){ // unpause
             beginCountdown(duration: timeRemaining, phase: phase)
         }
+    }
+    func skip() {
+        handlePhaseChange()
     }
     
 //    func snoozeBreak() {}

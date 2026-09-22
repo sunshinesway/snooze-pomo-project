@@ -15,30 +15,62 @@ import SwiftUI
 struct ContentView: View {
     @EnvironmentObject var engine: PomoEngine
     
-    @State private var timerRunning: Bool = false
+//    @State private var timerRunning: Bool = false
         
     var body: some View {
         
         VStack {
-            Button("Start/Stop"){
-                if engine.timeRemaining.isZero {
-                    engine.startWork()
-                    timerRunning = true
+            
+            switch engine.phase {
+                case .idle:
+                    Button("Start Work"){
+                        engine.start()
+                    }
+                case .working, .onBreak:
+                    VStack {
+                        if engine.phase == .working {
+                            Text("Working")
+                        }
+                        else { Text("On Break") }
+                        
+                        Text(engine.timeRemainingString)
+                            .font(Font.system(size: 48))
+                        HStack {
+                            Button("Stop"){
+                                engine.stop()
+                            }
+                            Button("Pause"){
+                                engine.pause()
+                            }
+                        }.padding()
+                    }
+                
+                case .snoozed:
+                    VStack {
+                        Text("Snoozed Break")
+                        
+                        Text(engine.timeRemainingString)
+                            .font(Font.system(size: 48))
+                        HStack {
+                            Button("Stop"){
+                                engine.stop()
+                            }
+                            Button("Skip"){ // end snooze - go to break
+                                engine.skip()
+                            }
+                        }.padding()
+                    }
+                
+                case .breakReady:
                     
-                }
-                else {
-                    engine.stop()
-                    timerRunning = false
-                }
-}
-            Button("Pause",
-                   action: { engine.pause() })
-            .disabled(timerRunning == false || engine.timeRemaining.isZero)
-            Text(engine.timeRemainingString)
+                
+                    
+            }
         }
-        .padding()
     }
+    .padding()
 }
+
 
 #Preview {
     ContentView()
