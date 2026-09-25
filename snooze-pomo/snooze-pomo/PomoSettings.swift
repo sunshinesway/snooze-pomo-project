@@ -15,5 +15,21 @@ struct PomoSettings  {
     var snoozeDuration: TimeInterval = 5 // real: 5 * 60
     
     var breakReadyDuration: TimeInterval = 5 // time to see notification and click 'snooze'
-        var maxSnoozeCount: Int = 2
+    var maxSnoozeCount: Int = 2
+    
+    mutating func setWorkDuration(_ duration: TimeInterval) {
+        workDuration = duration
+    }
+    mutating func setBreakDuration(_ duration: TimeInterval) {
+        breakDuration = duration
+    }
+    mutating func snoozeDuration(_ duration: TimeInterval) {
+        snoozeDuration = duration
+    }
+    mutating func setBreakReadyDuration(_ duration: TimeInterval) {
+        breakReadyDuration = duration
+    }
+    mutating func setMaxSnoozeCount(_ count: Int) {
+        maxSnoozeCount = count
+    }
 }

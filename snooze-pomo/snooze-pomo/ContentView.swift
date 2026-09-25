@@ -17,6 +17,11 @@ struct ContentView: View {
     @Environment(\.appearsActive) private var appearsActive
     @Environment(\.openWindow) private var openWindow
         
+    let work_red = Color(red: 0.956, green: 0.0, blue: 0.207)
+    let break_blue = Color(red: 0.0, green: 0.655, blue: 0.871)
+    let snooze_purple = Color(red: 0.847, green: 0.388, blue: 1.0)
+    
+    
     var body: some View {
         
         VStack {
@@ -30,11 +35,20 @@ struct ContentView: View {
                     VStack {
                         if engine.phase == .working {
                             Text("Working")
+                                .foregroundStyle(work_red)
+                                .font(Font.system(size: 20))
+                                .bold()
+                            
                         }
-                        else { Text("On Break") }
-                        
+                        else {
+                            Text("On Break")
+                                .foregroundStyle(break_blue)
+                                .font(Font.system(size: 20))
+                                .bold()
+
+                        }
                         Text(engine.timeRemainingString)
-                            .font(Font.system(size: 48))
+                            .font(Font.system(size: 72))
                         HStack {
                             Button("Stop"){
                                 engine.stop()
@@ -51,9 +65,13 @@ struct ContentView: View {
                 case .snoozed:
                     VStack {
                         Text("Snoozed Break")
-                        
+                            .foregroundStyle(snooze_purple)
+                            .font(Font.system(size: 20))
+                            .bold()
+                        Text("Snoozes used: \(engine.snoozesUsed)")
+                            .font(Font.system(size: 12))
                         Text(engine.timeRemainingString)
-                            .font(Font.system(size: 48))
+                            .font(Font.system(size: 72))
                         HStack {
                             Button("Stop"){
                                 engine.stop()
@@ -67,10 +85,15 @@ struct ContentView: View {
                 case .breakReady:
                     VStack() {
                         Text("Snooze break?")
+                            .font(Font.system(size: 32))
                         Button("Snooze"){
                             engine.snooze()
                         }
+                        .buttonStyle(.borderedProminent)
+                        .font(.headline.bold())
+                        .frame(width: 100, height: 50)
                     }
+                    
                     
             }
         }
@@ -80,6 +103,7 @@ struct ContentView: View {
                 openWindow(id: "snooze-prompt")
             }
         }
+        .frame(width: 300, height: 200)
     }
     
 }

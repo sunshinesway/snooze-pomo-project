@@ -28,7 +28,21 @@ struct snooze_pomoApp: App {
                 .environmentObject(engine)
         }
         .windowLevel(.floating)
-        
+        MenuBarExtra(
+            engine.timeRemainingString
+        ) {
+            BarMenu()
+                .environmentObject(engine)
+        }
+        .menuBarExtraStyle(.menu)
+        #if os(macOS)
+        Settings {
+            SettingsView()
+                .environmentObject(engine)
+                .windowResizeBehavior(.disabled)
+                .frame(width: 500, height: 300)
+        }
+        #endif
             
      // TODO: add MenuBarExtra for menu bar utility
     

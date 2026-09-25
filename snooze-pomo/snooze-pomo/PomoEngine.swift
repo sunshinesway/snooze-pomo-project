@@ -83,12 +83,18 @@ final class PomoEngine: ObservableObject {
 //                notify(title: "Break complete", body: "Back to work!")
           
             case .snoozed:
-                // TODO: add logic to handle maxSnooze limit per break
+            if snoozesUsed < settings.maxSnoozeCount {
+                beginCountdown(duration: settings.breakReadyDuration, phase: .breakReady)
+            }
+            else {
+                snoozesUsed = 0
                 beginCountdown(duration: settings.breakDuration, phase: .onBreak)
+            }
             
             case .breakReady:
                 if snoozing {
                     beginCountdown(duration: settings.snoozeDuration, phase: .snoozed)
+                    snoozesUsed += 1
                 }
                 else {
                     beginCountdown(duration: settings.breakDuration, phase: .onBreak)
