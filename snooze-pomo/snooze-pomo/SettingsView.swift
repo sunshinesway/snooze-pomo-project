@@ -85,7 +85,7 @@ struct SettingsView: View {
     private func maxSnoozes(_ keyPath: ReferenceWritableKeyPath<PomoEngine, Int>) -> Binding<Int> {
         Binding(
             get: { engine[keyPath: keyPath] },
-            set: { engine[keyPath: keyPath] = max(0, $0) } // clamp: no negative values
+            set: { engine[keyPath: keyPath] = max(1, $0) } // clamp: no zero or negative values
         )
     }
 }

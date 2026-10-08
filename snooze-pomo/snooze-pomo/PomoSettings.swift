@@ -19,19 +19,19 @@ struct PomoSettings  {
     
     var snoozeEnabled: Bool = true
     
-    mutating func setWorkDuration(_ duration: TimeInterval) {
-        workDuration = duration
-    }
-    mutating func setBreakDuration(_ duration: TimeInterval) {
-        breakDuration = duration
-    }
-    mutating func setSnoozeDuration(_ duration: TimeInterval) {
-        snoozeDuration = duration
-    }
-    mutating func setBreakReadyDuration(_ duration: TimeInterval) {
-        breakReadyDuration = duration
-    }
-    mutating func setMaxSnoozeCount(_ count: Int) {
-        maxSnoozeCount = count
-    }
+//    mutating func setWorkDuration(_ duration: TimeInterval) {
+//        workDuration = duration
+//    }
+//    mutating func setBreakDuration(_ duration: TimeInterval) {
+//        breakDuration = duration
+//    }
+//    mutating func setSnoozeDuration(_ duration: TimeInterval) {
+//        snoozeDuration = duration
+//    }
+//    mutating func setBreakReadyDuration(_ duration: TimeInterval) {
+//        breakReadyDuration = duration
+//    }
+//    mutating func setMaxSnoozeCount(_ count: Int) {
+//        maxSnoozeCount = count
+//    }
 }
