@@ -10,32 +10,18 @@ import SwiftUI
 struct SettingsView: View {
     @EnvironmentObject var engine: PomoEngine
     
-    @State private var workLength: String = ""
-    @State private var breakLength: String = ""
-    @State private var snoozeLength: String = ""
-    @State private var breakReadyLength: String = ""
-    @State private var maxSnooze: String = ""
+    private var isSnoozeOn: Bool {
+        engine.settings.maxSnoozeCount > 0
+    }
     
     var body: some View {
-        var workLengthInt: Int {
-            Int(workLength) ?? 25
-        }
-        var breakLengthInt: Int {
-            Int(breakLength) ?? 5
-        }
-        var snoozeLengthInt: Int {
-            Int(snoozeLength) ?? 5
-        }
-        var breakReadyLengthInt: Int {
-            Int(breakReadyLength) ?? 10
-        }
         Spacer().frame(height:20)
         Grid(alignment: .center, horizontalSpacing: 12, verticalSpacing: 6) {
             GridRow {
                 Text("Work length:")
                     .font(Font.system(size: 14))
                     .frame(maxWidth: .infinity, alignment: .trailing)
-                TextField("", text: $workLength)
+                TextField("", value: minutes_conv(\.settings.workDuration), format: .number)
                     .frame(width: 100)
                 Text("minutes")
                     .font(Font.system(size: 14))
@@ -45,37 +31,61 @@ struct SettingsView: View {
                 Text("Break length:")
                     .font(Font.system(size: 14))
                     .frame(maxWidth: .infinity, alignment: .trailing)
-                TextField("", text: $breakLength)
+                TextField("", value: minutes_conv(\.settings.breakDuration), format: .number)
                     .frame(width: 100)
                 Text("minutes")
                     .font(Font.system(size: 14))
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
+            
+            Spacer()
+                .frame(height: 12)
+            Toggle("Enable Snooze", isOn: $engine.settings.snoozeEnabled)
+                .toggleStyle(.checkbox)
+            
             GridRow {
                 Text("Snooze length:")
                     .font(Font.system(size: 14))
                     .frame(maxWidth: .infinity, alignment: .trailing)
-                TextField("", text: $snoozeLength)
+                TextField("", value: minutes_conv(\.settings.snoozeDuration), format: .number)
                     .frame(width: 100)
                 Text("minutes")
                     .font(Font.system(size: 14))
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
-            Spacer()
-                .frame(height: 12)
+            .disabled(!isSnoozeOn)
             GridRow {
                 Text("Max snoozes per break:")
                     .frame(maxWidth: .infinity, alignment: .trailing)
                     .font(Font.system(size: 14))
-                TextField("", text: $maxSnooze)
+                TextField("", value: maxSnoozes(\.settings.maxSnoozeCount), format: .number)
                     .frame(width: 100)
                 Text("snoozes")
                     .font(Font.system(size: 14))
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
+            .disabled(!isSnoozeOn)
             
         }
         Spacer().frame(height:20)
     }
-        
+    
+    private func minutes_conv(_ keyPath: ReferenceWritableKeyPath<PomoEngine, TimeInterval>) -> Binding<Int> {
+        Binding(
+            get: { Int(engine[keyPath: keyPath] / 60) },
+            set: { engine[keyPath: keyPath] = TimeInterval(max(1, $0) * 60) } // floor, 1 min
+        )
+    }
+    private var snoozeEnabled: Binding<Bool> {
+        Binding(
+            get: { engine.settings.maxSnoozeCount > 0 },
+            set: { engine.settings.maxSnoozeCount = $0 ? 2 : 0 }
+        )
+    }
+    private func maxSnoozes(_ keyPath: ReferenceWritableKeyPath<PomoEngine, Int>) -> Binding<Int> {
+        Binding(
+            get: { engine[keyPath: keyPath] },
+            set: { engine[keyPath: keyPath] = max(0, $0) } // clamp: no negative values
+        )
+    }
 }

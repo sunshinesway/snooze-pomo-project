@@ -11,8 +11,8 @@ class SoundPlayer {
     var audioPlayer: AVAudioPlayer?
     
     func playSound() {
-        guard let soundURL = Bundle.main.url(forResource: "chime", withExtension: "mp3") else {
-            print("Error playing sounds file 'chime.mp3'")
+        guard let soundURL = Bundle.main.url(forResource: "soundreality-notification-reception-615689_double", withExtension: "mp3") else {
+            print("Error playing sounds file 'soundreality-notification-reception-615689_double.mp3'")
             return }
         
         do {

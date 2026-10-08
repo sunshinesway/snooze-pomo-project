@@ -15,16 +15,11 @@ import UserNotifications
     // timer logic -> move to service
     // engine -> owns instance of timer, exposes @Pub vars, and intents (startWork/Break, etc)
 
-// TODO: snooze functionality
-    // move between work -> breakReady -> break -> work OR
-                //  work -> breakReady -> snooze -> break -> work
-                // (+ addtl breakReady -> snooze dep. on num allowed)
-
 // VIEW MODEL
 final class PomoEngine: ObservableObject {
 //    public init() {}
     
-    @Published var settings: PomoSettings = PomoSettings(workDuration: 10, breakDuration: 5) // testing vals: 10/5 secs
+    @Published var settings: PomoSettings = PomoSettings(workDuration: 60 * 60, breakDuration: 10 * 60) // testing vals: 10/5 secs
     private var soundPlayer: SoundPlayer = SoundPlayer()
     
     // Live state
