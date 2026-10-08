@@ -7,7 +7,7 @@
 import Foundation
 
 // MODEL
-struct PomoSettings  {
+struct PomoSettings: Codable, Equatable  {
     
     // Configured durations, preferences
     var workDuration: TimeInterval =  60 * 60 // real: 60 * 60 // testing: 15

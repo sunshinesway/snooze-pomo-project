@@ -17,9 +17,19 @@ import UserNotifications
 
 // VIEW MODEL
 final class PomoEngine: ObservableObject {
-//    public init() {}
+    private let settingsStore: SettingsStore
     
-    @Published var settings: PomoSettings = PomoSettings(workDuration: 60 * 60, breakDuration: 10 * 60) // testing vals: 10/5 secs
+    public init(
+        settingsStore: SettingsStore = UserDefaultsSettingsStore()
+    ) {
+        self.settingsStore = settingsStore
+        self.settings = settingsStore.load() ?? PomoSettings()
+    }
+    
+    
+    @Published var settings: PomoSettings = PomoSettings(workDuration: 60 * 60, breakDuration: 10 * 60) {
+        didSet { settingsStore.save(settings)}
+    }
     private var soundPlayer: SoundPlayer = SoundPlayer()
     
     // Live state
@@ -70,7 +80,12 @@ final class PomoEngine: ObservableObject {
         
         switch phase { // go to next phase
             case .working:
-                beginCountdown(duration: settings.breakReadyDuration, phase: .breakReady)
+                if settings.snoozeEnabled {
+                    beginCountdown(duration: settings.breakReadyDuration, phase: .breakReady)
+                }
+                else {
+                    beginCountdown(duration: settings.breakDuration, phase: .onBreak)
+                }
 //                notify(title: "Work Session complete", body: "Take a break!")
             
             case .onBreak:
@@ -78,13 +93,13 @@ final class PomoEngine: ObservableObject {
 //                notify(title: "Break complete", body: "Back to work!")
           
             case .snoozed:
-            if snoozesUsed < settings.maxSnoozeCount {
-                beginCountdown(duration: settings.breakReadyDuration, phase: .breakReady)
-            }
-            else {
-                snoozesUsed = 0
-                beginCountdown(duration: settings.breakDuration, phase: .onBreak)
-            }
+                if snoozesUsed < settings.maxSnoozeCount {
+                    beginCountdown(duration: settings.breakReadyDuration, phase: .breakReady)
+                }
+                else {
+                    snoozesUsed = 0
+                    beginCountdown(duration: settings.breakDuration, phase: .onBreak)
+                }
             
             case .breakReady:
                 if snoozing {
