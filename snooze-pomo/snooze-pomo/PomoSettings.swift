@@ -35,3 +35,8 @@ struct PomoSettings: Codable, Equatable  {
 //        maxSnoozeCount = count
 //    }
 }
+
+// TODO: long break addition ( + length of w/b/lb cycle)
+// TODO: sound level setting
+// LATER TODO: different sound selections
+

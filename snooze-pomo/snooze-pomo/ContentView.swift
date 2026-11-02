@@ -16,7 +16,11 @@ struct ContentView: View {
     @EnvironmentObject var engine: PomoEngine
     @Environment(\.appearsActive) private var appearsActive
     @Environment(\.openWindow) private var openWindow
-        
+    
+    private var isPaused: Bool {
+        engine.isPaused
+    }
+    
     let work_red = Color(red: 0.956, green: 0.0, blue: 0.207)
     let break_blue = Color(red: 0.0, green: 0.655, blue: 0.871)
     let snooze_purple = Color(red: 0.847, green: 0.388, blue: 1.0)
@@ -28,9 +32,17 @@ struct ContentView: View {
             
             switch engine.phase {
                 case .idle:
-                    Button("Start Work"){
+                    Button {
                         engine.start()
+                    } label: {
+                        Text("Start Work")
+                            .padding(.horizontal, 8)
+                            .frame(height: 44)
+                            .cornerRadius(8)
+                            .font(Font.system(size: 20))
+//                            .bold()
                     }
+                    .buttonStyle(.borderedProminent)
                 case .working, .onBreak:
                     VStack {
                         if engine.phase == .working {
@@ -53,8 +65,13 @@ struct ContentView: View {
                             Button("Stop"){
                                 engine.stop()
                             }
-                            Button("Pause"){
+//                            Button("Pause"){
+//                                engine.pause()
+//                            }
+                            Button(action: {
                                 engine.pause()
+                            }) {
+                                Text(isPaused ? "Resume" : "Pause")
                             }
                             Button("Skip"){
                                 engine.skip()

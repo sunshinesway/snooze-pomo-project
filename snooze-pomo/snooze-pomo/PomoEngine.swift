@@ -128,11 +128,13 @@ final class PomoEngine: ObservableObject {
         }
         else if (isPaused && timeRemaining > 0){ // unpause
             beginCountdown(duration: timeRemaining, phase: phase)
+            isPaused = false
         }
     }
     
     func skip() {
         handlePhaseChange()
+        isPaused = false
     }
     
     func snooze() {
@@ -144,6 +146,7 @@ final class PomoEngine: ObservableObject {
         ticker = nil
         timeRemaining = 0
         phase = .idle
+        isPaused = false
     }
     
     // Notifications
