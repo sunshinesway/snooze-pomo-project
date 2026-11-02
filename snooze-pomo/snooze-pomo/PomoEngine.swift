@@ -27,7 +27,12 @@ final class PomoEngine: ObservableObject {
     }
     
     
-    @Published var settings: PomoSettings = PomoSettings(workDuration: 60 * 60, breakDuration: 10 * 60) {
+    @Published var settings: PomoSettings = PomoSettings(
+            workDuration: 60 * 60,
+            breakDuration: 10 * 60,
+            longBreakDuration: 30 * 60,
+            snoozeDuration: 5 * 60,
+            numberOfCycles: 4) {
         didSet { settingsStore.save(settings)}
     }
     private var soundPlayer: SoundPlayer = SoundPlayer()
@@ -38,6 +43,7 @@ final class PomoEngine: ObservableObject {
     @Published private(set) var isPaused: Bool = false
     
     private(set) var snoozesUsed: Int = 0
+    private(set) var cyclesCompleted: Int = 0
     
     // Time Remaining Display
     var timeRemainingString: String {
@@ -81,7 +87,12 @@ final class PomoEngine: ObservableObject {
         switch phase { // go to next phase
             case .working:
                 if settings.snoozeEnabled {
-                    beginCountdown(duration: settings.breakReadyDuration, phase: .breakReady)
+                    if (cyclesCompleted == settings.numberOfCycles) {
+                        beginCountdown(duration: settings.longBreakDuration, phase: .onBreak)
+                        cyclesCompleted = 0
+                    } else {
+                        beginCountdown(duration: settings.breakReadyDuration, phase: .breakReady)
+                    }
                 }
                 else {
                     beginCountdown(duration: settings.breakDuration, phase: .onBreak)
@@ -91,6 +102,7 @@ final class PomoEngine: ObservableObject {
             case .onBreak:
                 beginCountdown(duration: settings.workDuration, phase: .working)
 //                notify(title: "Break complete", body: "Back to work!")
+                cyclesCompleted += 1
           
             case .snoozed:
                 if snoozesUsed < settings.maxSnoozeCount {
