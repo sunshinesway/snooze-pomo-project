@@ -114,7 +114,7 @@ final class PomoEngine: ObservableObject {
                     snoozesUsed += 1
                 }
                 else {
-                    if (workSessionsCompleted == settings.numOfWorkToLongBreak) {
+                    if (workSessionsCompleted >= settings.numOfWorkToLongBreak) {
                         beginCountdown(duration: settings.longBreakDuration, phase: .onBreak)
                         workSessionsCompleted = 0
                     } else {

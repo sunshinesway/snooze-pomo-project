@@ -39,6 +39,7 @@ struct SettingsView: View {
                     .font(Font.system(size: 14))
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
+            
             GridRow {
                 Text("Long Break length:")
                     .font(Font.system(size: 14))
@@ -58,6 +59,7 @@ struct SettingsView: View {
                     }
                 }
             }
+            .disabled(!engine.settings.longBreakEnabled)
             Toggle("Enable Long Breaks", isOn: $engine.settings.longBreakEnabled)
                 .toggleStyle(.checkbox)
             
@@ -65,7 +67,6 @@ struct SettingsView: View {
                 .frame(height: 12)
             Toggle("Enable Snooze", isOn: $engine.settings.snoozeEnabled)
                 .toggleStyle(.checkbox)
-            
             GridRow {
                 Text("Snooze length:")
                     .font(Font.system(size: 14))
