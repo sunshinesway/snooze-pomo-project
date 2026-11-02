@@ -40,6 +40,8 @@ struct SettingsView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             
+            Toggle("Enable Long Breaks", isOn: $engine.settings.longBreakEnabled)
+                .toggleStyle(.checkbox)
             GridRow {
                 Text("Long Break length:")
                     .font(Font.system(size: 14))
@@ -53,6 +55,8 @@ struct SettingsView: View {
             .disabled(!engine.settings.longBreakEnabled)
             GridRow {
                 Text("Long break:")
+                    .font(Font.system(size: 14))
+                    .frame(maxWidth: .infinity, alignment: .trailing)
                 Picker("", selection: $engine.settings.numOfWorkToLongBreak) {
                     ForEach(numWorkSessionsArray, id: \.self) { num in
                         Text("After \(num) work sessions")
@@ -60,8 +64,6 @@ struct SettingsView: View {
                 }
             }
             .disabled(!engine.settings.longBreakEnabled)
-            Toggle("Enable Long Breaks", isOn: $engine.settings.longBreakEnabled)
-                .toggleStyle(.checkbox)
             
             Spacer()
                 .frame(height: 12)
@@ -91,6 +93,7 @@ struct SettingsView: View {
             .disabled(!isSnoozeOn)
             
         }
+        .padding([.leading, .trailing], 10)
         Spacer().frame(height:20)
     }
     

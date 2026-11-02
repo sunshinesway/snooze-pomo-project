@@ -25,7 +25,6 @@ struct PomoSettings: Codable, Equatable  {
     var longBreakEnabled: Bool = true
 }
 
-// TODO: long break addition ( + length of w/b/lb cycle)
 // TODO: sound level setting
 // LATER TODO: different sound selections
 
