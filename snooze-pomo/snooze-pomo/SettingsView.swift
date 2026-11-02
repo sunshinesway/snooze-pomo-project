@@ -11,8 +11,10 @@ struct SettingsView: View {
     @EnvironmentObject var engine: PomoEngine
     
     private var isSnoozeOn: Bool {
-        engine.settings.maxSnoozeCount > 0
+        (engine.settings.maxSnoozeCount > 0 && engine.settings.snoozeEnabled)
     }
+    
+    private var numWorkSessionsArray = Array(2...10)
     
     var body: some View {
         Spacer().frame(height:20)
@@ -37,6 +39,27 @@ struct SettingsView: View {
                     .font(Font.system(size: 14))
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
+            GridRow {
+                Text("Long Break length:")
+                    .font(Font.system(size: 14))
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                TextField("", value: minutes_conv(\.settings.longBreakDuration), format: .number)
+                    .frame(width: 100)
+                Text("minutes")
+                    .font(Font.system(size: 14))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .disabled(!engine.settings.longBreakEnabled)
+            GridRow {
+                Text("Long break:")
+                Picker("", selection: $engine.settings.numOfWorkToLongBreak) {
+                    ForEach(numWorkSessionsArray, id: \.self) { num in
+                        Text("After \(num) work sessions")
+                    }
+                }
+            }
+            Toggle("Enable Long Breaks", isOn: $engine.settings.longBreakEnabled)
+                .toggleStyle(.checkbox)
             
             Spacer()
                 .frame(height: 12)

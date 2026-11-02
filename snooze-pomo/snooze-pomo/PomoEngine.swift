@@ -32,7 +32,7 @@ final class PomoEngine: ObservableObject {
             breakDuration: 10 * 60,
             longBreakDuration: 30 * 60,
             snoozeDuration: 5 * 60,
-            numberOfCycles: 4) {
+            numOfWorkToLongBreak: 4) {
         didSet { settingsStore.save(settings)}
     }
     private var soundPlayer: SoundPlayer = SoundPlayer()

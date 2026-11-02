@@ -22,6 +22,7 @@ struct PomoSettings: Codable, Equatable  {
     var maxSnoozeCount: Int = 2
     
     var snoozeEnabled: Bool = true
+    var longBreakEnabled: Bool = true
 }
 
 // TODO: long break addition ( + length of w/b/lb cycle)
