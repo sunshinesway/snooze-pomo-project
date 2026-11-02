@@ -86,7 +86,7 @@ final class PomoEngine: ObservableObject {
         
         switch phase { // go to next phase
             case .working:
-                workSessionsCompleted += 1
+                if settings.longBreakEnabled { workSessionsCompleted += 1 }
                 if settings.snoozeEnabled {
                     beginCountdown(duration: settings.breakReadyDuration, phase: .breakReady)
                 }
@@ -114,7 +114,7 @@ final class PomoEngine: ObservableObject {
                     snoozesUsed += 1
                 }
                 else {
-                    if (workSessionsCompleted >= settings.numOfWorkToLongBreak) {
+                    if (settings.longBreakEnabled && workSessionsCompleted >= settings.numOfWorkToLongBreak) {
                         beginCountdown(duration: settings.longBreakDuration, phase: .onBreak)
                         workSessionsCompleted = 0
                     } else {
