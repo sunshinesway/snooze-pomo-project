@@ -43,7 +43,7 @@ final class PomoEngine: ObservableObject {
     @Published private(set) var isPaused: Bool = false
     
     private(set) var snoozesUsed: Int = 0
-    private(set) var cyclesCompleted: Int = 0
+    private(set) var workSessionsCompleted: Int = 0
     
     // Time Remaining Display
     var timeRemainingString: String {
@@ -86,13 +86,9 @@ final class PomoEngine: ObservableObject {
         
         switch phase { // go to next phase
             case .working:
+                workSessionsCompleted += 1
                 if settings.snoozeEnabled {
-                    if (cyclesCompleted == settings.numberOfCycles) {
-                        beginCountdown(duration: settings.longBreakDuration, phase: .onBreak)
-                        cyclesCompleted = 0
-                    } else {
-                        beginCountdown(duration: settings.breakReadyDuration, phase: .breakReady)
-                    }
+                    beginCountdown(duration: settings.breakReadyDuration, phase: .breakReady)
                 }
                 else {
                     beginCountdown(duration: settings.breakDuration, phase: .onBreak)
@@ -102,7 +98,6 @@ final class PomoEngine: ObservableObject {
             case .onBreak:
                 beginCountdown(duration: settings.workDuration, phase: .working)
 //                notify(title: "Break complete", body: "Back to work!")
-                cyclesCompleted += 1
           
             case .snoozed:
                 if snoozesUsed < settings.maxSnoozeCount {
@@ -119,7 +114,12 @@ final class PomoEngine: ObservableObject {
                     snoozesUsed += 1
                 }
                 else {
-                    beginCountdown(duration: settings.breakDuration, phase: .onBreak)
+                    if (workSessionsCompleted == settings.numOfWorkToLongBreak) {
+                        beginCountdown(duration: settings.longBreakDuration, phase: .onBreak)
+                        workSessionsCompleted = 0
+                    } else {
+                        beginCountdown(duration: settings.breakDuration, phase: .onBreak)
+                    }
             }
                 
             case .idle: // should NOT fire from .idle phase: .idle -> .working handled by start()

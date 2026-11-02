@@ -16,7 +16,7 @@ struct PomoSettings: Codable, Equatable  {
     var snoozeDuration: TimeInterval = 5 * 60 // real: 5 * 60 // testing: 5
     
     
-    var numberOfCycles: Int = 4 // w/b cycles before longBreak
+    var numOfWorkToLongBreak: Int = 4 // work sessions before longBreak
      
     var breakReadyDuration: TimeInterval = 5 // time to see notification and click 'snooze'
     var maxSnoozeCount: Int = 2
