@@ -44,4 +44,23 @@ struct PomoEngineTests {
         engine.settings.longBreakEnabled = false
     }
     
+    // helpers
+    
+    // sim "seconds" w/ no real waiting
+    private func tick(_ seconds: Int) {
+        for _ in 0..<seconds { engine.tick() }
+    }
+    
+    // let current phase run out
+    private func finishPhase() {
+        tick(Int(engine.timeRemaining))
+    }
+    
+    private func reachBreakReady() {
+        engine.start()
+        finishPhase()
+    }
+    
+    
+    
 }
