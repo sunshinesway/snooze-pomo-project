@@ -20,12 +20,15 @@ final class PomoEngine: ObservableObject {
     private let settingsStore: SettingsStore
     
     public init(
-        settingsStore: SettingsStore = UserDefaultsSettingsStore()
+        settingsStore: SettingsStore = UserDefaultsSettingsStore(),
+        soundPlayer: SoundPlaying = SoundPlayer()
     ) {
         self.settingsStore = settingsStore
+        self.soundPlayer = soundPlayer
         self.settings = settingsStore.load() ?? PomoSettings()
     }
     
+    deinit { ticker?.invalidate() }
     
     @Published var settings: PomoSettings = PomoSettings(
             workDuration: 60 * 60,
@@ -35,7 +38,8 @@ final class PomoEngine: ObservableObject {
             numOfWorkToLongBreak: 4) {
         didSet { settingsStore.save(settings)}
     }
-    private var soundPlayer: SoundPlayer = SoundPlayer()
+//    private var soundPlayer: SoundPlayer = SoundPlayer()
+    private let soundPlayer: SoundPlaying
     
     // Live state
     @Published private(set) var phase: PomoPhase = .idle
@@ -69,7 +73,8 @@ final class PomoEngine: ObservableObject {
         ticker = t
     }
     
-    private func tick() {
+//    private func tick() {
+    func tick() {
         timeRemaining -= 1
         
         if timeRemaining <= 0 {
