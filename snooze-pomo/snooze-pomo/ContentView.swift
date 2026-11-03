@@ -61,13 +61,11 @@ struct ContentView: View {
                         }
                         Text(engine.timeRemainingString)
                             .font(Font.system(size: 72))
+                        // TODO: show number of work sesssions completed, re: long break
                         HStack {
                             Button("Stop"){
                                 engine.stop()
                             }
-//                            Button("Pause"){
-//                                engine.pause()
-//                            }
                             Button(action: {
                                 engine.pause()
                             }) {
@@ -77,6 +75,8 @@ struct ContentView: View {
                                 engine.skip()
                             }
                         }.padding()
+//                        Text(String(engine.workSessionsCompleted))
+//                        Text("Max: \(engine.settings.numOfWorkToLongBreak)")
                     }
                 
                 case .snoozed:

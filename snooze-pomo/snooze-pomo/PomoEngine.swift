@@ -27,7 +27,12 @@ final class PomoEngine: ObservableObject {
     }
     
     
-    @Published var settings: PomoSettings = PomoSettings(workDuration: 60 * 60, breakDuration: 10 * 60) {
+    @Published var settings: PomoSettings = PomoSettings(
+            workDuration: 60 * 60,
+            breakDuration: 10 * 60,
+            longBreakDuration: 30 * 60,
+            snoozeDuration: 5 * 60,
+            numOfWorkToLongBreak: 4) {
         didSet { settingsStore.save(settings)}
     }
     private var soundPlayer: SoundPlayer = SoundPlayer()
@@ -38,6 +43,7 @@ final class PomoEngine: ObservableObject {
     @Published private(set) var isPaused: Bool = false
     
     private(set) var snoozesUsed: Int = 0
+    private(set) var workSessionsCompleted: Int = 0
     
     // Time Remaining Display
     var timeRemainingString: String {
@@ -80,6 +86,7 @@ final class PomoEngine: ObservableObject {
         
         switch phase { // go to next phase
             case .working:
+                if settings.longBreakEnabled { workSessionsCompleted += 1 }
                 if settings.snoozeEnabled {
                     beginCountdown(duration: settings.breakReadyDuration, phase: .breakReady)
                 }
@@ -107,7 +114,12 @@ final class PomoEngine: ObservableObject {
                     snoozesUsed += 1
                 }
                 else {
-                    beginCountdown(duration: settings.breakDuration, phase: .onBreak)
+                    if (settings.longBreakEnabled && workSessionsCompleted >= settings.numOfWorkToLongBreak) {
+                        beginCountdown(duration: settings.longBreakDuration, phase: .onBreak)
+                        workSessionsCompleted = 0
+                    } else {
+                        beginCountdown(duration: settings.breakDuration, phase: .onBreak)
+                    }
             }
                 
             case .idle: // should NOT fire from .idle phase: .idle -> .working handled by start()

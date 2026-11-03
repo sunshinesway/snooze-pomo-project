@@ -11,8 +11,10 @@ struct SettingsView: View {
     @EnvironmentObject var engine: PomoEngine
     
     private var isSnoozeOn: Bool {
-        engine.settings.maxSnoozeCount > 0
+        (engine.settings.maxSnoozeCount > 0 && engine.settings.snoozeEnabled)
     }
+    
+    private var numWorkSessionsArray = Array(2...10)
     
     var body: some View {
         Spacer().frame(height:20)
@@ -38,11 +40,35 @@ struct SettingsView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
             
+            Toggle("Enable Long Breaks", isOn: $engine.settings.longBreakEnabled)
+                .toggleStyle(.checkbox)
+            GridRow {
+                Text("Long Break length:")
+                    .font(Font.system(size: 14))
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                TextField("", value: minutes_conv(\.settings.longBreakDuration), format: .number)
+                    .frame(width: 100)
+                Text("minutes")
+                    .font(Font.system(size: 14))
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .disabled(!engine.settings.longBreakEnabled)
+            GridRow {
+                Text("Long break:")
+                    .font(Font.system(size: 14))
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                Picker("", selection: $engine.settings.numOfWorkToLongBreak) {
+                    ForEach(numWorkSessionsArray, id: \.self) { num in
+                        Text("After \(num) work sessions")
+                    }
+                }
+            }
+            .disabled(!engine.settings.longBreakEnabled)
+            
             Spacer()
                 .frame(height: 12)
             Toggle("Enable Snooze", isOn: $engine.settings.snoozeEnabled)
                 .toggleStyle(.checkbox)
-            
             GridRow {
                 Text("Snooze length:")
                     .font(Font.system(size: 14))
@@ -67,6 +93,7 @@ struct SettingsView: View {
             .disabled(!isSnoozeOn)
             
         }
+        .padding([.leading, .trailing], 10)
         Spacer().frame(height:20)
     }
     
