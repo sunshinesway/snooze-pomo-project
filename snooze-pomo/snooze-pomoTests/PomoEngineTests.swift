@@ -210,5 +210,25 @@ struct PomoEngineTests {
         #expect(engine.timeRemaining == 30)
     }
     
+//  // pause functionality
+    @Test func pause_StopsCountdown() {
+        engine.start()
+        tick(10)
+        engine.pause()
+        
+        #expect(engine.isPaused)
+        #expect(engine.timeRemaining == 50) // 60 - 10 = 50
+    }
+    
+    @Test func pauseTwice_resumesWhereItLeftOff() {
+        engine.start()
+        tick(10)
+        engine.pause() // timeRem = 50
+        engine.pause() // resume
+        
+        #expect(!engine.isPaused)
+        #expect(engine.phase == .working)
+        #expect(engine.timeRemaining == 50)
+    }
     
 }
