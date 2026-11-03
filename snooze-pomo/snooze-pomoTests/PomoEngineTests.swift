@@ -199,7 +199,7 @@ struct PomoEngineTests {
     
     @Test func longBreak_Happens_When_SnoozesRunOut() {
         engine.settings.longBreakEnabled = true
-        engine.settings.numOfWorkToLongBreak = 2
+        engine.settings.numOfWorkToLongBreak = 1
         engine.settings.maxSnoozeCount = 1
         
         reachBreakReady() // work #1 -> breakReady
