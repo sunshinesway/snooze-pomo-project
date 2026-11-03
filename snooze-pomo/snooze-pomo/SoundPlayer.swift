@@ -7,6 +7,9 @@
 
 import AVFAudio
 
+protocol SoundPlaying { func playSound() }
+extension SoundPlayer: SoundPlaying {}
+
 class SoundPlayer {
     var audioPlayer: AVAudioPlayer?
     
