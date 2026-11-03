@@ -61,6 +61,36 @@ struct PomoEngineTests {
         finishPhase()
     }
     
+    // basic functionality
+    @Test func startWorkSession() {
+        engine.start()
+        
+        #expect(engine.phase == .working)
+        #expect(engine.timeRemaining == 60)
+    }
     
+    @Test func tickCountsDown() {
+        engine.start()
+        tick(10)
+        
+        #expect(engine.timeRemaining == 50) // 60 - 10 = 50
+    }
     
+    @Test func stopReturnsToIdle() {
+        engine.start()
+        tick(3)
+        engine.stop()
+        
+        #expect(engine.phase == .idle)
+        #expect(engine.timeRemaining == 0)
+    }
+    
+    // timeRemainingString accuracy
+    @Test(arguments: [(5, "0:05"), (59, "0:59"), (60,"1:00"), (125,"2:05"), (3600,"60:00")])
+    func timeRemainingStringFormat(sec: Int, expected: String) {
+        engine.settings.workDuration = TimeInterval(sec)
+        engine.start()
+        
+        #expect(engine.timeRemainingString == expected)
+    }
 }
