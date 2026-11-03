@@ -168,4 +168,47 @@ struct PomoEngineTests {
         #expect(engine.snoozesUsed == 0)
     }
     
+//  // long break functionality
+    @Test func longBreak_after_SpecNumWorks() {
+        engine.settings.longBreakEnabled = true
+        engine.settings.numOfWorkToLongBreak = 2
+        
+        engine.start()
+        finishPhase() // work #1 -> breakReady
+        finishPhase() // short break
+        #expect(engine.timeRemaining == 15)
+        
+        finishPhase() // shortBreak -> work #2
+        finishPhase() // work #2 -> breakReady
+        finishPhase() // long break
+        
+        #expect(engine.phase == .onBreak)
+        #expect(engine.timeRemaining == 30)
+    }
+    
+    @Test func longBreak_Happens_WhenSnoozeDisabled() {
+        engine.settings.snoozeEnabled = false
+        engine.settings.longBreakEnabled = true
+        engine.settings.numOfWorkToLongBreak = 1
+        
+        engine.start() // work #1 -> breakReady
+        finishPhase() // breakReady -> long break
+        
+        #expect(engine.timeRemaining == 30)
+    }
+    
+    @Test func longBreak_Happens_When_SnoozesRunOut() {
+        engine.settings.longBreakEnabled = true
+        engine.settings.numOfWorkToLongBreak = 2
+        engine.settings.maxSnoozeCount = 1
+        
+        reachBreakReady() // work #1 -> breakReady
+        engine.snooze() // use snooze, cap reached
+        finishPhase() // -> force long break
+        
+        #expect(engine.phase == .onBreak)
+        #expect(engine.timeRemaining == 30)
+    }
+    
+    
 }
