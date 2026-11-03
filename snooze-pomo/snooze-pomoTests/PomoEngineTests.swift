@@ -44,7 +44,7 @@ struct PomoEngineTests {
         engine.settings.longBreakEnabled = false
     }
     
-    // helpers
+//  // helpers
     
     // sim "seconds" w/ no real waiting
     private func tick(_ seconds: Int) {
@@ -61,7 +61,8 @@ struct PomoEngineTests {
         finishPhase()
     }
     
-    // basic functionality
+    
+//  // basic functionality
     @Test func startWorkSession() {
         engine.start()
         
@@ -93,4 +94,39 @@ struct PomoEngineTests {
         
         #expect(engine.timeRemainingString == expected)
     }
+    
+//  // phase transitions
+    @Test func workEnd_SnoozeEnabled_transBreakReady() {
+        reachBreakReady()
+        
+        #expect(engine.phase == .breakReady)
+        #expect(engine.timeRemaining == 5)
+    }
+    
+    @Test func workEnd_SnoozeDisabled_transBreak() {
+        engine.settings.snoozeEnabled = false
+        engine.start()
+        finishPhase()
+        
+        #expect(engine.phase == .onBreak)
+        #expect(engine.timeRemaining == 15)
+    }
+    
+    @Test func breakReadyExpire_woSnooze_transBreak() {
+        reachBreakReady()
+        finishPhase()
+        
+        #expect(engine.phase == .onBreak)
+        #expect(engine.timeRemaining == 15)
+    }
+    
+    @Test func breakEnd_transWork() {
+        reachBreakReady()
+        finishPhase() // breakReady -> onBreak
+        finishPhase() // onBreak -> working
+        
+        #expect(engine.phase == .working)
+        #expect(engine.timeRemaining == 60)
+    }
+    
 }
