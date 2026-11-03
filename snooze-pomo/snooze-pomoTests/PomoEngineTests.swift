@@ -231,4 +231,17 @@ struct PomoEngineTests {
         #expect(engine.timeRemaining == 50)
     }
     
+//  // Sound
+    @Test func phaseChange_playsSound_ExceptSnoozing() {
+        engine.settings.maxSnoozeCount = 1
+        
+        reachBreakReady() // work -> breakReady
+        #expect(sound.playCount == 1)
+        
+        engine.snooze() // breakReady -> snooze // cap reached
+        #expect(sound.playCount == 1)
+        
+        finishPhase() // snooze -> work
+        #expect(sound.playCount == 2)
+    }
 }
