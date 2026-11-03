@@ -129,4 +129,43 @@ struct PomoEngineTests {
         #expect(engine.timeRemaining == 60)
     }
     
+//  // snooze functionality
+    @Test func snooze_BreakReady_startCountdown() {
+        reachBreakReady()
+        engine.snooze()
+        
+        #expect(engine.phase == .snoozed)
+        #expect(engine.timeRemaining == 10)
+        #expect(engine.snoozesUsed == 1)
+    }
+    
+    @Test func snoozeExpire_returnToBreakReady_SnoozesRemaining() {
+        reachBreakReady()
+        engine.snooze()
+        finishPhase()
+        
+        #expect(engine.phase == .breakReady)
+    }
+    
+    @Test func noSnoozesLeft_forceBreak() {
+        engine.settings.maxSnoozeCount = 2
+        reachBreakReady()
+        
+        engine.snooze() // 1st snooze
+        finishPhase()
+        engine.snooze() // 2nd snooze, cap reached
+        finishPhase()
+        
+        #expect(engine.phase == .onBreak)
+    }
+    
+    @Test func snoozeCount_Reset_PerBreak(){
+        reachBreakReady()
+        engine.snooze()
+        finishPhase() // back to breakReady w/ 1 snooze used
+        finishPhase() // breakReady -> onBreak
+        
+        #expect(engine.snoozesUsed == 0)
+    }
+    
 }
