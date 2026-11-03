@@ -125,6 +125,7 @@ final class PomoEngine: ObservableObject {
                     } else {
                         beginCountdown(duration: settings.breakDuration, phase: .onBreak)
                     }
+                    if settings.snoozeEnabled { snoozesUsed = 0 } // done snoozing, reset snoozes
             }
                 
             case .idle: // should NOT fire from .idle phase: .idle -> .working handled by start()
