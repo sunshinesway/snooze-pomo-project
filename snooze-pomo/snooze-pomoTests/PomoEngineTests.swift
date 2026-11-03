@@ -244,4 +244,24 @@ struct PomoEngineTests {
         finishPhase() // snooze -> work
         #expect(sound.playCount == 2)
     }
+    
+//  // settings persistence
+    @Test func changeSettings_savesToStore() {
+        engine.settings.workDuration = 1234
+        
+        #expect(store.saved?.workDuration == 1234)
+    }
+    
+    @Test func init_loadsSavedSettings() {
+        var saved = PomoSettings()
+        saved.workDuration = 4321
+        
+        let newStore = InMemSettingsStore()
+        newStore.saved = saved
+        
+        let loaded = PomoEngine(settingsStore: newStore, soundPlayer: TestSoundPlayer())
+        
+        #expect(loaded.settings.workDuration == 4321)
+    }
+    
 }
