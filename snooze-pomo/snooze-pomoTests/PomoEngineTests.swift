@@ -26,5 +26,22 @@ final class TestSoundPlayer: SoundPlaying {
 }
 
 struct PomoEngineTests {
+    let store = InMemSettingsStore()
+    let sound = TestSoundPlayer()
+    let engine: PomoEngine
+    
+    init() {
+        engine = PomoEngine(settingsStore: store, soundPlayer: sound)
+        
+        // small, distinct durations for testing
+        engine.settings.workDuration = 60
+        engine.settings.breakDuration = 15
+        engine.settings.longBreakDuration = 30
+        engine.settings.snoozeDuration = 10
+        engine.settings.breakReadyDuration = 5
+        engine.settings.maxSnoozeCount = 2
+        engine.settings.snoozeEnabled = true
+        engine.settings.longBreakEnabled = false
+    }
     
 }
