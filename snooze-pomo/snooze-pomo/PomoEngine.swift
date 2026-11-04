@@ -96,7 +96,8 @@ final class PomoEngine: ObservableObject {
                     beginCountdown(duration: settings.breakReadyDuration, phase: .breakReady)
                 }
                 else {
-                    beginCountdown(duration: settings.breakDuration, phase: .onBreak)
+                    if settings.longBreakEnabled { checkLongBreak() }
+                    else { beginCountdown(duration: settings.breakDuration, phase: .onBreak)}
                 }
 //                notify(title: "Work Session complete", body: "Take a break!")
             
@@ -110,7 +111,8 @@ final class PomoEngine: ObservableObject {
                 }
                 else {
                     snoozesUsed = 0
-                    beginCountdown(duration: settings.breakDuration, phase: .onBreak)
+                    if settings.longBreakEnabled { checkLongBreak() }
+                    else { beginCountdown(duration: settings.breakDuration, phase: .onBreak)}
                 }
             
             case .breakReady:
@@ -119,16 +121,21 @@ final class PomoEngine: ObservableObject {
                     snoozesUsed += 1
                 }
                 else {
-                    if (settings.longBreakEnabled && workSessionsCompleted >= settings.numOfWorkToLongBreak) {
-                        beginCountdown(duration: settings.longBreakDuration, phase: .onBreak)
-                        workSessionsCompleted = 0
-                    } else {
-                        beginCountdown(duration: settings.breakDuration, phase: .onBreak)
-                    }
+                    if settings.longBreakEnabled { checkLongBreak() }
+                    else { beginCountdown(duration: settings.breakDuration, phase: .onBreak)}
+                    if settings.snoozeEnabled { snoozesUsed = 0 } // done snoozing, reset snoozes
             }
                 
             case .idle: // should NOT fire from .idle phase: .idle -> .working handled by start()
                 break
+        }
+    }
+    private func checkLongBreak() {
+        if workSessionsCompleted >= settings.numOfWorkToLongBreak {
+            beginCountdown(duration: settings.longBreakDuration, phase: .onBreak)
+            workSessionsCompleted = 0
+        } else {
+            beginCountdown(duration: settings.breakDuration, phase: .onBreak)
         }
     }
     
