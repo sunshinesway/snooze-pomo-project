@@ -97,13 +97,14 @@ final class PomoEngine: ObservableObject {
                 }
                 else {
                     if settings.longBreakEnabled { checkLongBreak() }
+                    else { beginCountdown(duration: settings.breakDuration, phase: .onBreak)}
 //                    if (settings.longBreakEnabled && workSessionsCompleted >= settings.numOfWorkToLongBreak) {
 //                        beginCountdown(duration: settings.longBreakDuration, phase: .onBreak)
 //                        workSessionsCompleted = 0
 //                    } else {
 //                        beginCountdown(duration: settings.breakDuration, phase: .onBreak)
 //                    }
-//                    beginCountdown(duration: settings.breakDuration, phase: .onBreak)
+//
                 }
 //                notify(title: "Work Session complete", body: "Take a break!")
             
@@ -118,6 +119,7 @@ final class PomoEngine: ObservableObject {
                 else {
                     snoozesUsed = 0
                     if settings.longBreakEnabled { checkLongBreak() }
+                    else { beginCountdown(duration: settings.breakDuration, phase: .onBreak)}
 //                    if (settings.longBreakEnabled && workSessionsCompleted >= settings.numOfWorkToLongBreak) {
 //                        beginCountdown(duration: settings.longBreakDuration, phase: .onBreak)
 //                        workSessionsCompleted = 0
@@ -134,6 +136,7 @@ final class PomoEngine: ObservableObject {
                 }
                 else {
                     if settings.longBreakEnabled { checkLongBreak() }
+                    else { beginCountdown(duration: settings.breakDuration, phase: .onBreak)}
 //                    if (settings.longBreakEnabled && workSessionsCompleted >= settings.numOfWorkToLongBreak) {
 //                        beginCountdown(duration: settings.longBreakDuration, phase: .onBreak)
 //                        workSessionsCompleted = 0
