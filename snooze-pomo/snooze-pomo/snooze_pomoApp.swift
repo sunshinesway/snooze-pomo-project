@@ -19,9 +19,9 @@ struct snooze_pomoApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(engine)
-                .onAppear {
-                    engine.requestPermission()
-                }
+//                .onAppear {
+//                    engine.requestPermission()
+//                }
         }
         Window("Snooze Break?", id: "snooze-prompt") {
             SnoozePromptView()
