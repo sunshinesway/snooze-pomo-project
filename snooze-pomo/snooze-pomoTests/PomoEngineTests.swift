@@ -25,13 +25,27 @@ final class TestSoundPlayer: SoundPlaying {
     func playSound() { playCount += 1 }
 }
 
+final class TestClock {
+    private(set) var currentDate: Date
+    init( _ date: Date = Date(timeIntervalSince1970: 0)) {
+        self.currentDate = date
+    }
+    
+    func advance(by seconds: TimeInterval) {
+        currentDate.addTimeInterval(seconds)
+    }
+    
+    var provider: () -> Date { { self.currentDate } }
+}
+
 struct PomoEngineTests {
     let store = InMemSettingsStore()
     let sound = TestSoundPlayer()
     let engine: PomoEngine
+    let clock = TestClock()
     
     init() {
-        engine = PomoEngine(settingsStore: store, soundPlayer: sound)
+        engine = PomoEngine(clock: clock.provider, settingsStore: store, soundPlayer: sound)
         
         // small, distinct durations for testing
         engine.settings.workDuration = 60
@@ -48,7 +62,11 @@ struct PomoEngineTests {
     
     // sim "seconds" w/ no real waiting
     private func tick(_ seconds: Int) {
-        for _ in 0..<seconds { engine.tick() }
+//        for _ in 0..<seconds { engine.tick() }
+        for _ in 0..<seconds {
+            clock.advance(by: 1)
+            engine.tick()
+        }
     }
     
     // let current phase run out
@@ -263,5 +281,33 @@ struct PomoEngineTests {
         
         #expect(loaded.settings.workDuration == 4321)
     }
+//  // persistance after 'sleep'
+    @Test func sleepPastWorkEnd_landInBreakReady() {
+        engine.start()
+        clock.advance(by: 600) // sleep for 10 min during 60s phase
+        engine.tick()
+        
+        #expect(engine.phase == .breakReady)
+        #expect(engine.timeRemaining == 5)
+    }
     
+    @Test func display_roundsUp_TimeRemaining() {
+        engine.start()
+        clock.advance(by: 1.003)
+        engine.tick()
+        
+        #expect(engine.timeRemainingString == "0:59")
+    }
+    
+    @Test func resumeAfterPause_continueFromWhereLeftOff() {
+        engine.start()
+        tick(10)
+        engine.pause()
+        clock.advance(by:300) // 5 min
+        engine.pause() // resume
+        tick(10)
+        
+        #expect(engine.timeRemaining == 40)
+        
+    }
 }
