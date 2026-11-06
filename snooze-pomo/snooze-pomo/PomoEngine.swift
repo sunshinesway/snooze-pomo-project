@@ -20,9 +20,11 @@ final class PomoEngine: ObservableObject {
     private let settingsStore: SettingsStore
     
     public init(
+        clock: @escaping () -> Date = Date.init,
         settingsStore: SettingsStore = UserDefaultsSettingsStore(),
         soundPlayer: SoundPlaying = SoundPlayer()
     ) {
+        self.clock = clock
         self.settingsStore = settingsStore
         self.soundPlayer = soundPlayer
         self.settings = settingsStore.load() ?? PomoSettings()
@@ -51,18 +53,22 @@ final class PomoEngine: ObservableObject {
     
     // Time Remaining Display
     var timeRemainingString: String {
-        let timeRem = Int(max(0, timeRemaining))
+        let timeRem = Int(ceil(max(0, timeRemaining)))
         let mins = timeRem / 60
         let secs = timeRem % 60
         return String(format: "%d:%02d", mins, secs)
     }
     
     // Internal timing
+    private var endDate: Date?
     private var ticker: Timer?
+    
+    private var clock: () -> Date
     
     private func beginCountdown(duration: TimeInterval, phase newPhase: PomoPhase) {
         ticker?.invalidate() // stop ticker if running
         phase = newPhase
+        endDate = clock().addingTimeInterval(duration)
         timeRemaining = duration
         
         let t = Timer(timeInterval: 1.0, repeats: true) {[weak self] _ in
@@ -75,9 +81,12 @@ final class PomoEngine: ObservableObject {
     
 //    private func tick() {
     func tick() {
-        timeRemaining -= 1
+        guard let endDate else { return }
+        let remaining = endDate.timeIntervalSince(clock())
+//        timeRemaining -= 1
+        timeRemaining = max(0, remaining)
         
-        if timeRemaining <= 0 {
+        if remaining <= 0 {
             handlePhaseChange()
         }
     }
@@ -148,7 +157,9 @@ final class PomoEngine: ObservableObject {
         if ticker != nil { // pause
             ticker?.invalidate()
             ticker = nil
+            endDate = nil
             isPaused = true
+            // timeRemaining held for resume
         }
         else if (isPaused && timeRemaining > 0){ // unpause
             beginCountdown(duration: timeRemaining, phase: phase)
@@ -168,26 +179,27 @@ final class PomoEngine: ObservableObject {
     func stop() {
         ticker?.invalidate()
         ticker = nil
+        endDate = nil
         timeRemaining = 0
         phase = .idle
         isPaused = false
     }
     
     // Notifications
-    func notify(title: String, body: String) {
-        let content = UNMutableNotificationContent()
-        content.title = title
-        content.body = body
-        content.sound = .default
-        
-        let request = UNNotificationRequest(
-            identifier: UUID().uuidString,
-            content: content,
-            trigger: nil // immediately
-        )
-        UNUserNotificationCenter.current().add(request)
-    }
-    func requestPermission() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { _, _ in }
-    }
+//    func notify(title: String, body: String) {
+//        let content = UNMutableNotificationContent()
+//        content.title = title
+//        content.body = body
+//        content.sound = .default
+//        
+//        let request = UNNotificationRequest(
+//            identifier: UUID().uuidString,
+//            content: content,
+//            trigger: nil // immediately
+//        )
+//        UNUserNotificationCenter.current().add(request)
+//    }
+//    func requestPermission() {
+//        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound]) { _, _ in }
+//    }
 }
