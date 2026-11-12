@@ -3,7 +3,7 @@
 A native macOS pomodoro timer app built in Swift. The timer allows you to hit 'snooze' on your breaks,
 so that you can wrap up a task or take notes on your work and then more fully disconnect while on break.
 
-<img width="1188" height="812" alt="snooze-seq" src="https://github.com/user-attachments/assets/f0657145-9edf-4236-9d08-93db2002b4a9" />
+<img width="612" height="440" alt="snooze-seq" src="https://github.com/user-attachments/assets/f0657145-9edf-4236-9d08-93db2002b4a9" />
 
 <img width="612" height="440" alt="Screenshot 2026-11-10 at 12 38 18 PM" src="https://github.com/user-attachments/assets/ab84485c-72a9-42d3-8bdc-b75741a41f14" />
 
