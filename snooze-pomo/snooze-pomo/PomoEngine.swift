@@ -94,7 +94,8 @@ final class PomoEngine: ObservableObject {
     private func handlePhaseChange(snoozing: Bool = false) {
         ticker?.invalidate()
         ticker = nil
-        if !snoozing {
+//        if !snoozing {
+        if phase != .breakReady {
             soundPlayer.playSound()
         }
         
