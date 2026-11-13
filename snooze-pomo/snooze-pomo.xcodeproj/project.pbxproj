@@ -95,6 +95,16 @@
 			path = "snooze-pomo-mobileUITests";
 			sourceTree = "<group>";
 		};
+		289BA91330A770D70026DC5F /* Sounds */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Sounds;
+			sourceTree = "<group>";
+		};
+		289BA91E30A78E320026DC5F /* Shared-Assets */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Shared-Assets";
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +156,8 @@
 		280C75CD306188AB0025F74A = {
 			isa = PBXGroup;
 			children = (
+				289BA91E30A78E320026DC5F /* Shared-Assets */,
+				289BA91330A770D70026DC5F /* Sounds */,
 				280F42E7309A80040096CA02 /* snooze-pomo.xctestplan */,
 				280C75D8306188AB0025F74A /* snooze-pomo */,
 				280C75E6306188AC0025F74A /* snooze-pomoTests */,
@@ -187,6 +199,8 @@
 			);
 			fileSystemSynchronizedGroups = (
 				280C75D8306188AB0025F74A /* snooze-pomo */,
+				289BA91330A770D70026DC5F /* Sounds */,
+				289BA91E30A78E320026DC5F /* Shared-Assets */,
 			);
 			name = "snooze-pomo";
 			packageProductDependencies = (
@@ -255,6 +269,8 @@
 			);
 			fileSystemSynchronizedGroups = (
 				280F4318309B9BF50096CA02 /* snooze-pomo-mobile */,
+				289BA91330A770D70026DC5F /* Sounds */,
+				289BA91E30A78E320026DC5F /* Shared-Assets */,
 			);
 			name = "snooze-pomo-mobile";
 			packageProductDependencies = (
@@ -761,6 +777,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -794,6 +813,9 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
