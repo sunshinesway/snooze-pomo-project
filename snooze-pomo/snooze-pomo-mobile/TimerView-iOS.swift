@@ -49,8 +49,57 @@ struct TimerView_iOS: View {
                 //
                 // controls
                 //
-                
+                timerControls
             }
+        }
+    }
+    @ViewBuilder
+    private var timerControls: some View {
+        switch engine.phase {
+            case .idle:
+                Button {
+                    engine.start()
+                } label: {
+                    Text("Start Work")
+                }
+            case .working, .onBreak:
+                HStack{
+                    Button {
+                        engine.stop()
+                    } label: {
+                        Label("Stop", systemImage: "stop.fill")
+                    }
+                    Button {
+                        engine.pause()
+                    } label: {
+                        Label(engine.isPaused ? "Resume" : "Pause",
+                              systemImage: engine.isPaused ? "play.fill" : "pause.fill")
+                    }
+                    Button {
+                        engine.skip()
+                    } label: {
+                        Label("Skip", systemImage: "foward.fill")
+                    }
+                }
+            case .snoozed:
+                HStack {
+                    Button {
+                        engine.stop()
+                    } label: {
+                        Label("Stop", systemImage: "stop.fill")
+                    }
+                    Button {
+                        engine.skip()
+                    } label: {
+                        Label("Skip", systemImage: "foward.fill")
+                    }
+                }
+            case .breakReady:
+                Button {
+                    engine.snooze()
+                } label: {
+                    Text("Snooze")
+                }
         }
     }
 }
