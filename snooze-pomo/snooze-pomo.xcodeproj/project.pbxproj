@@ -21,17 +21,52 @@
 			remoteGlobalIDString = 280C75D5306188AB0025F74A;
 			remoteInfo = "snooze-pomo";
 		};
+		280F4324309B9BF60096CA02 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 280C75CE306188AB0025F74A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 280F4316309B9BF50096CA02;
+			remoteInfo = "snooze-pomo-mobile";
+		};
+		280F432E309B9BF60096CA02 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 280C75CE306188AB0025F74A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 280F4316309B9BF50096CA02;
+			remoteInfo = "snooze-pomo-mobile";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		280C75D6306188AB0025F74A /* snooze-pomo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "snooze-pomo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		280C75E3306188AC0025F74A /* snooze-pomoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "snooze-pomoTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		280C75ED306188AC0025F74A /* snooze-pomoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "snooze-pomoUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		280F42E7309A80040096CA02 /* snooze-pomo.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = "snooze-pomo.xctestplan"; sourceTree = "<group>"; };
+		280F4317309B9BF50096CA02 /* snooze-pomo-mobile.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "snooze-pomo-mobile.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		280F4323309B9BF60096CA02 /* snooze-pomo-mobileTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "snooze-pomo-mobileTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		280F432D309B9BF60096CA02 /* snooze-pomo-mobileUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "snooze-pomo-mobileUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		280F4344309B9E1A0096CA02 /* Exceptions for "snooze-pomo" folder in "snooze-pomo-mobile" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				PomoEngine.swift,
+				PomoPhase.swift,
+				PomoSettings.swift,
+				SoundPlayer.swift,
+				StoreSettings.swift,
+			);
+			target = 280F4316309B9BF50096CA02 /* snooze-pomo-mobile */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		280C75D8306188AB0025F74A /* snooze-pomo */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				280F4344309B9E1A0096CA02 /* Exceptions for "snooze-pomo" folder in "snooze-pomo-mobile" target */,
+			);
 			path = "snooze-pomo";
 			sourceTree = "<group>";
 		};
@@ -43,6 +78,21 @@
 		280C75F0306188AC0025F74A /* snooze-pomoUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "snooze-pomoUITests";
+			sourceTree = "<group>";
+		};
+		280F4318309B9BF50096CA02 /* snooze-pomo-mobile */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "snooze-pomo-mobile";
+			sourceTree = "<group>";
+		};
+		280F4326309B9BF60096CA02 /* snooze-pomo-mobileTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "snooze-pomo-mobileTests";
+			sourceTree = "<group>";
+		};
+		280F4330309B9BF60096CA02 /* snooze-pomo-mobileUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "snooze-pomo-mobileUITests";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -69,15 +119,40 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		280F4314309B9BF50096CA02 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		280F4320309B9BF60096CA02 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		280F432A309B9BF60096CA02 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		280C75CD306188AB0025F74A = {
 			isa = PBXGroup;
 			children = (
+				280F42E7309A80040096CA02 /* snooze-pomo.xctestplan */,
 				280C75D8306188AB0025F74A /* snooze-pomo */,
 				280C75E6306188AC0025F74A /* snooze-pomoTests */,
 				280C75F0306188AC0025F74A /* snooze-pomoUITests */,
+				280F4318309B9BF50096CA02 /* snooze-pomo-mobile */,
+				280F4326309B9BF60096CA02 /* snooze-pomo-mobileTests */,
+				280F4330309B9BF60096CA02 /* snooze-pomo-mobileUITests */,
 				280C75D7306188AB0025F74A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,6 +163,9 @@
 				280C75D6306188AB0025F74A /* snooze-pomo.app */,
 				280C75E3306188AC0025F74A /* snooze-pomoTests.xctest */,
 				280C75ED306188AC0025F74A /* snooze-pomoUITests.xctest */,
+				280F4317309B9BF50096CA02 /* snooze-pomo-mobile.app */,
+				280F4323309B9BF60096CA02 /* snooze-pomo-mobileTests.xctest */,
+				280F432D309B9BF60096CA02 /* snooze-pomo-mobileUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -163,6 +241,74 @@
 			productReference = 280C75ED306188AC0025F74A /* snooze-pomoUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		280F4316309B9BF50096CA02 /* snooze-pomo-mobile */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 280F4335309B9BF60096CA02 /* Build configuration list for PBXNativeTarget "snooze-pomo-mobile" */;
+			buildPhases = (
+				280F4313309B9BF50096CA02 /* Sources */,
+				280F4314309B9BF50096CA02 /* Frameworks */,
+				280F4315309B9BF50096CA02 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				280F4318309B9BF50096CA02 /* snooze-pomo-mobile */,
+			);
+			name = "snooze-pomo-mobile";
+			packageProductDependencies = (
+			);
+			productName = "snooze-pomo-mobile";
+			productReference = 280F4317309B9BF50096CA02 /* snooze-pomo-mobile.app */;
+			productType = "com.apple.product-type.application";
+		};
+		280F4322309B9BF60096CA02 /* snooze-pomo-mobileTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 280F4338309B9BF60096CA02 /* Build configuration list for PBXNativeTarget "snooze-pomo-mobileTests" */;
+			buildPhases = (
+				280F431F309B9BF60096CA02 /* Sources */,
+				280F4320309B9BF60096CA02 /* Frameworks */,
+				280F4321309B9BF60096CA02 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				280F4325309B9BF60096CA02 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				280F4326309B9BF60096CA02 /* snooze-pomo-mobileTests */,
+			);
+			name = "snooze-pomo-mobileTests";
+			packageProductDependencies = (
+			);
+			productName = "snooze-pomo-mobileTests";
+			productReference = 280F4323309B9BF60096CA02 /* snooze-pomo-mobileTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		280F432C309B9BF60096CA02 /* snooze-pomo-mobileUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 280F433B309B9BF60096CA02 /* Build configuration list for PBXNativeTarget "snooze-pomo-mobileUITests" */;
+			buildPhases = (
+				280F4329309B9BF60096CA02 /* Sources */,
+				280F432A309B9BF60096CA02 /* Frameworks */,
+				280F432B309B9BF60096CA02 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				280F432F309B9BF60096CA02 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				280F4330309B9BF60096CA02 /* snooze-pomo-mobileUITests */,
+			);
+			name = "snooze-pomo-mobileUITests";
+			packageProductDependencies = (
+			);
+			productName = "snooze-pomo-mobileUITests";
+			productReference = 280F432D309B9BF60096CA02 /* snooze-pomo-mobileUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -184,6 +330,17 @@
 						CreatedOnToolsVersion = 26.3;
 						TestTargetID = 280C75D5306188AB0025F74A;
 					};
+					280F4316309B9BF50096CA02 = {
+						CreatedOnToolsVersion = 26.3;
+					};
+					280F4322309B9BF60096CA02 = {
+						CreatedOnToolsVersion = 26.3;
+						TestTargetID = 280F4316309B9BF50096CA02;
+					};
+					280F432C309B9BF60096CA02 = {
+						CreatedOnToolsVersion = 26.3;
+						TestTargetID = 280F4316309B9BF50096CA02;
+					};
 				};
 			};
 			buildConfigurationList = 280C75D1306188AB0025F74A /* Build configuration list for PBXProject "snooze-pomo" */;
@@ -203,6 +360,9 @@
 				280C75D5306188AB0025F74A /* snooze-pomo */,
 				280C75E2306188AC0025F74A /* snooze-pomoTests */,
 				280C75EC306188AC0025F74A /* snooze-pomoUITests */,
+				280F4316309B9BF50096CA02 /* snooze-pomo-mobile */,
+				280F4322309B9BF60096CA02 /* snooze-pomo-mobileTests */,
+				280F432C309B9BF60096CA02 /* snooze-pomo-mobileUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -223,6 +383,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		280C75EB306188AC0025F74A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		280F4315309B9BF50096CA02 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		280F4321309B9BF60096CA02 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		280F432B309B9BF60096CA02 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -253,6 +434,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		280F4313309B9BF50096CA02 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		280F431F309B9BF60096CA02 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		280F4329309B9BF60096CA02 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -265,6 +467,16 @@
 			isa = PBXTargetDependency;
 			target = 280C75D5306188AB0025F74A /* snooze-pomo */;
 			targetProxy = 280C75EE306188AC0025F74A /* PBXContainerItemProxy */;
+		};
+		280F4325309B9BF60096CA02 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 280F4316309B9BF50096CA02 /* snooze-pomo-mobile */;
+			targetProxy = 280F4324309B9BF60096CA02 /* PBXContainerItemProxy */;
+		};
+		280F432F309B9BF60096CA02 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 280F4316309B9BF50096CA02 /* snooze-pomo-mobile */;
+			targetProxy = 280F432E309B9BF60096CA02 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -392,6 +604,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -422,6 +635,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
@@ -523,6 +737,161 @@
 			};
 			name = Release;
 		};
+		280F4336309B9BF60096CA02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "cs.snooze-pomo-mobile";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		280F4337309B9BF60096CA02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "cs.snooze-pomo-mobile";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		280F4339309B9BF60096CA02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "cs.snooze-pomo-mobileTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/snooze-pomo-mobile.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/snooze-pomo-mobile";
+			};
+			name = Debug;
+		};
+		280F433A309B9BF60096CA02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "cs.snooze-pomo-mobileTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/snooze-pomo-mobile.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/snooze-pomo-mobile";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		280F433C309B9BF60096CA02 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "cs.snooze-pomo-mobileUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "snooze-pomo-mobile";
+			};
+			name = Debug;
+		};
+		280F433D309B9BF60096CA02 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 26.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "cs.snooze-pomo-mobileUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "snooze-pomo-mobile";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -558,6 +927,33 @@
 			buildConfigurations = (
 				280C75FE306188AC0025F74A /* Debug */,
 				280C75FF306188AC0025F74A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		280F4335309B9BF60096CA02 /* Build configuration list for PBXNativeTarget "snooze-pomo-mobile" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				280F4336309B9BF60096CA02 /* Debug */,
+				280F4337309B9BF60096CA02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		280F4338309B9BF60096CA02 /* Build configuration list for PBXNativeTarget "snooze-pomo-mobileTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				280F4339309B9BF60096CA02 /* Debug */,
+				280F433A309B9BF60096CA02 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		280F433B309B9BF60096CA02 /* Build configuration list for PBXNativeTarget "snooze-pomo-mobileUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				280F433C309B9BF60096CA02 /* Debug */,
+				280F433D309B9BF60096CA02 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

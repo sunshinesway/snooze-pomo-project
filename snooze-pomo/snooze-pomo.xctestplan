@@ -1,0 +1,38 @@
+{
+  "configurations" : [
+    {
+      "id" : "4B66B326-D1A8-4A55-A19D-F10D23C58ABD",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "performanceAntipatternCheckerEnabled" : true,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:snooze-pomo.xcodeproj",
+      "identifier" : "280C75D5306188AB0025F74A",
+      "name" : "snooze-pomo"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:snooze-pomo.xcodeproj",
+        "identifier" : "280C75E2306188AC0025F74A",
+        "name" : "snooze-pomoTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:snooze-pomo.xcodeproj",
+        "identifier" : "280C75EC306188AC0025F74A",
+        "name" : "snooze-pomoUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
